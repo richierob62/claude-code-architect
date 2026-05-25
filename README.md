@@ -108,11 +108,6 @@ That's it. Lesson 00 sets up `uv`, Python 3.12, the `anthropic` SDK, and your `.
     └── settings.json      ← formatOnSave
 ```
 
-Files intentionally gitignored:
-- `test-guidelines.md` — the Anthropic exam guide (confidential, not redistributed)
-- `session-notes.md` — personal continuity memory for the original author / any cloner using Claude Code
-- `.env` — your `ANTHROPIC_API_KEY` lives here, never commit it
-
 ---
 
 ## Contributing
