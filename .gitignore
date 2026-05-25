@@ -1,0 +1,20 @@
+.DS_Store
+
+# Claude Code local state — committed: settings.json. Ignored: per-user, runtime, and
+# the commands/ dir (symlinks to ~/.claude/commands/ that only resolve on Rich's machine).
+.claude/settings.local.json
+.claude/worktrees/
+.claude/plans/
+.claude/commands/
+
+# Ralph runtime artifacts
+.ralph/run.log
+
+# Env
+.env
+.env.local
+.env.*.local
+
+# Personal / not for the public repo
+test-guidelines.md
+scratch-pad.md
