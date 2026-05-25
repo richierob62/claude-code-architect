@@ -11,6 +11,8 @@ Global instructions in `~/.claude/CLAUDE.md` apply.
 
 ## Session Notes (Authoritative Project Memory)
 
+> **If you cloned this repo and don't see `session-notes.md`**: that's expected. The file is personal continuity memory for the original author's study sessions and is gitignored. If you're using Claude Code to work through these lessons yourself, run `/handoff` and Claude will create your own `session-notes.md` from scratch, capturing *your* learner profile and progress. The stewardship rules below apply to whoever's `session-notes.md` is in play.
+
 1. **You are the sole owner and steward** of [`session-notes.md`](session-notes.md). Treat it as the **single source of truth** for this project.
 
 2. The purpose of this file is to **persist all knowledge required for any LLM (including yourself)** to resume teaching Rich at any point in the future without context loss. The two anchor sections are **Learner Profile** (read every session start — drives explanation depth and language choice) and **Pickup when resuming** (read first if you only read one section).
