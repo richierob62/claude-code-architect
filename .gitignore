@@ -20,7 +20,8 @@ test-guidelines.md
 scratch-pad.md
 session-notes.md
 
-# Learner answer scripts — each lesson asks the learner to CREATE these.
-# Shipping them on main would spoil the exercise. The original author's own
-# scripts live on the rich-learning branch (which un-ignores this dir).
-lessons/scripts/
+# Learner answer scripts — gitignored on main (each lesson asks the learner
+# to CREATE these; shipping them would spoil the exercise). On THIS branch
+# (rich-learning) the dir is un-ignored so the author's own scripts are tracked.
+# Keep this negation branch-local; never merge it into main.
+!lessons/scripts/
