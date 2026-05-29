@@ -95,3 +95,5 @@ if __name__ == "__main__":
     run("What's the weather in Tokyo right now?")
     # B: no tool needed → stop_reason 'end_turn' on call 1, no second call.
     run("What is 2 + 2?")
+    # C:
+    run("What's the weather in Foobar right now?")
