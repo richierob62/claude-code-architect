@@ -16,7 +16,7 @@ This is your personal curriculum for the Claude Certified Architect (Foundations
 
 - [x] [00 — Environment setup: uv, Python, API key, hello-world](./00-setup.md)
 - [x] [01 — The Claude API mental model: messages, stop_reason, system](./01-api-mental-model.md)
-- [ ] [02 — Tool use basics: the tool_use ↔ tool_result dance](./02-tool-use-basics.md)
+- [x] [02 — Tool use basics: the tool_use ↔ tool_result dance](./02-tool-use-basics.md)
 
 ## Module B — Agentic Loops (Domain 1 core, 6 lessons)
 
