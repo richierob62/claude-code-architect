@@ -97,7 +97,20 @@ Lessons 03–07. The heart of D1 — the highest-weighted domain. The loop patte
 mindmap
   root((Module B<br/>Agentic Loops))
     L03 Anatomy of the loop
-      not yet written
+      stop_reason is the loop condition
+        end_turn is the only normal exit
+        tool_use means continue
+        unexpected stop_reason handle explicitly
+      Loop body
+        append assistant turn verbatim
+        run every tool_use block
+        append user tool_results message
+      Chained tool calls
+        call N input depends on call N-1 output
+        find_id then get_details pattern
+      max_iters is a safety net
+        fires only on runaway bug
+        not the primary termination
     L04 Loop anti-patterns
       not yet written
     L05 Customer-lookup agent
@@ -224,7 +237,11 @@ Edges between concepts in *different* modules. Add one whenever a lesson reveals
 graph LR
     L01_stop_reason["L01 stop_reason tool_use"] --> L02_loop["L02 tool_use to tool_result dance"]
     L01_blocks["L01 content blocks"] --> L02_blocks["L02 tool_use and tool_result block shapes"]
-    L02_loop -.future.-> L03_while["L03 while loop over stop_reason"]
+    L02_loop --> L03_while["L03 while loop over stop_reason"]
+    L01_stop_reason --> L03_while
+    L03_while -.future.-> L04_anti["L04 loop anti-patterns text-parse iter-cap"]
+    L03_while -.future.-> L05_lookup["L05 customer-lookup agent end-to-end"]
+    L03_while -.future.-> L16_par["L16 parallel tool_use blocks in one turn"]
     L02_dance["L02 tool_use mechanism"] -.future.-> F_struct["Module F structured output via tool_use"]
     L02_dance -.future.-> C_mcp["Module C MCP tools same protocol"]
 ```
