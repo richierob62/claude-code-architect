@@ -14,7 +14,7 @@ Lesson 02 was the *atom*. This is the *molecule*. Domain 1 (Agentic Architecture
   - Treating an iteration cap as the *primary* stopping mechanism (caps are safety nets, not termination logic).
   - Checking whether the assistant produced any text content as a "is it done?" heuristic.
 
-Lock the `stop_reason`-as-condition framing now. Lesson 04 is a dedicated tour of the anti-patterns; this lesson is the positive case.
+Lock the `stop_reason`-as-condition framing now. Lesson 05 is a dedicated tour of the anti-patterns; this lesson is the positive case. (Lesson 04 sits between them — it names the broader catalog of agentic-system patterns the exam draws its vocabulary from.)
 
 ## What we're going to do
 
@@ -195,7 +195,7 @@ def run(user_text: str, max_iters: int = 10) -> None:
         messages.append({"role": "assistant", "content": response.content})
 
         # Execute every tool_use block this turn produced. (Claude can request
-        # several at once — Lesson 16 explores parallel calls in depth.)
+        # several at once — Lesson 17 explores parallel calls in depth.)
         tool_results = []
         for block in response.content:
             if block.type == "tool_use":
@@ -293,6 +293,6 @@ Then answer in one sentence each:
 
 ## Up next
 
-**Lesson 04 — Loop anti-patterns.** We've built the right loop. Next we tour the wrong ones — the answer choices the exam tempts you with — and prove, with code, why each one fails. By the end of 04 you'll be able to spot a broken loop in a multiple-choice stem within five seconds.
+**Lesson 04 — Workflow patterns: the agentic-systems catalog.** You've built one agent. Before we tour the loop anti-patterns (that's Lesson 05), we step back and learn the Anthropic-canonical vocabulary for *every* agentic-system shape: workflow vs. agent, and the five workflow patterns (prompt chaining, routing, parallelization, orchestrator-workers, evaluator-optimizer). Naming the patterns now turns the rest of the course into recognition rather than discovery — and the exam will use these names directly.
 
 When you've worked through this lesson and the exercises, tick the box in `lessons/README.md` and tell me you're done — I'll write 04.

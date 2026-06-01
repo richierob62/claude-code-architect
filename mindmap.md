@@ -91,7 +91,7 @@ mindmap
 
 ## Module B — Agentic Loops (D1 core)
 
-Lessons 03–07. The heart of D1 — the highest-weighted domain. The loop pattern, anti-patterns, error handling, and tool_choice.
+Lessons 03–08. The heart of D1 — the highest-weighted domain. The loop pattern, the Anthropic-canonical pattern catalog, anti-patterns, error handling, and tool_choice.
 
 ```mermaid
 mindmap
@@ -111,119 +111,138 @@ mindmap
       max_iters is a safety net
         fires only on runaway bug
         not the primary termination
-    L04 Loop anti-patterns
+    L04 Workflow patterns catalog
+      workflow vs agent distinction
+        workflow predefined code paths
+        agent model-directed control flow
+      augmented LLM building block
+        retrieval tools memory
+      five workflow patterns
+        prompt chaining
+        routing
+        parallelization sectioning and voting
+        orchestrator-workers
+        evaluator-optimizer
+      three implementation principles
+        simplicity
+        transparency
+        ACI rigor equal to HCI rigor
+      complexity ladder
+        single LLM call to workflow to agent
+        start simple add complexity only when it helps
+    L05 Loop anti-patterns
       not yet written
-    L05 Customer-lookup agent
+    L06 Customer-lookup agent
       not yet written
-    L06 Structured errors
+    L07 Structured errors
       not yet written
-    L07 tool_choice
+    L08 tool_choice
       not yet written
 ```
 
 ## Module C — MCP Deep Dive (D2)
 
-Lessons 08–11. MCP protocol, authoring servers with FastMCP, tool-description craft, `.mcp.json` configuration.
+Lessons 09–12. MCP protocol, authoring servers with FastMCP, ACI / tool-description craft, `.mcp.json` configuration.
 
 ```mermaid
 mindmap
   root((Module C<br/>MCP Deep Dive))
-    L08 MCP mental model
+    L09 MCP mental model
       not yet written
-    L09 FastMCP server
+    L10 FastMCP server
       not yet written
-    L10 Tool descriptions
+    L11 ACI tool descriptions
       not yet written
-    ["L11 .mcp.json"]
+    ["L12 .mcp.json"]
       not yet written
 ```
 
 ## Module D — Claude Agent SDK (D1 advanced)
 
-Lessons 12–17. Higher-level orchestration: AgentDefinition, subagent spawning, coordinator and parallel patterns, hooks.
+Lessons 13–18. Higher-level orchestration: AgentDefinition, subagent spawning, coordinator (orchestrator-workers) and parallel (parallelization–sectioning) patterns, hooks.
 
 ```mermaid
 mindmap
   root((Module D<br/>Claude Agent SDK))
-    L12 SDK vs raw API
+    L13 SDK vs raw API
       not yet written
-    L13 AgentDefinition
+    L14 AgentDefinition
       not yet written
-    L14 Subagent spawning
+    L15 Subagent spawning
       not yet written
-    L15 Coordinator pattern
+    L16 Coordinator pattern
       not yet written
-    L16 Parallel subagents
+    L17 Parallel subagents
       not yet written
-    L17 Hooks
+    L18 Hooks
       not yet written
 ```
 
 ## Module E — Claude Code Configuration (D3)
 
-Lessons 18–22. CLAUDE.md hierarchy, rules, commands and skills, plan mode, CI usage. Heavy weight; Rich is fluent on the day-to-day surfaces but exam tests specifics.
+Lessons 19–23. CLAUDE.md hierarchy, rules, commands and skills, plan mode, CI usage. Heavy weight; Rich is fluent on the day-to-day surfaces but exam tests specifics.
 
 ```mermaid
 mindmap
   root((Module E<br/>Claude Code Config))
-    ["L18 CLAUDE.md hierarchy"]
+    ["L19 CLAUDE.md hierarchy"]
       not yet written
-    ["L19 .claude/rules"]
+    ["L20 .claude/rules"]
       not yet written
-    L20 Commands and skills
+    L21 Commands and skills
       not yet written
-    L21 Plan mode
+    L22 Plan mode
       not yet written
-    L22 Claude Code in CI
+    L23 Claude Code in CI
       not yet written
 ```
 
 ## Module F — Structured Output and Extraction (D4)
 
-Lessons 23–27. Schema design, tool_use as the structured-output mechanism, Pydantic validation, few-shot, Batches API.
+Lessons 24–28. Schema design, tool_use as the structured-output mechanism, Pydantic validation (an instance of evaluator-optimizer), few-shot, Batches API.
 
 ```mermaid
 mindmap
   root((Module F<br/>Structured Output))
-    L23 Schema design
+    L24 Schema design
       not yet written
-    L24 tool_use as structured output
+    L25 tool_use as structured output
       not yet written
-    L25 Pydantic validation retry
+    L26 Pydantic validation retry
       not yet written
-    L26 Few-shot
+    L27 Few-shot
       not yet written
-    L27 Message Batches API
+    L28 Message Batches API
       not yet written
 ```
 
 ## Module G — Context and Reliability (D5)
 
-Lessons 28–32. Case-facts blocks, output trimming, lost-in-the-middle, escalation calibration, provenance.
+Lessons 29–33. Case-facts blocks, output trimming, lost-in-the-middle, escalation calibration, provenance.
 
 ```mermaid
 mindmap
   root((Module G<br/>Context and Reliability))
-    L28 Case-facts blocks
+    L29 Case-facts blocks
       not yet written
-    L29 Trim tool outputs
+    L30 Trim tool outputs
       not yet written
-    L30 Lost-in-the-middle
+    L31 Lost-in-the-middle
       not yet written
-    L31 Escalation calibration
+    L32 Escalation calibration
       not yet written
-    L32 Provenance
+    L33 Provenance
       not yet written
 ```
 
 ## Module H — Multi-pass and Self-Review (D4 advanced)
 
-Lesson 33. Independent-instance review; per-file and cross-file passes.
+Lesson 34. Independent-instance review (an instance of **evaluator-optimizer** with multiple evaluators); per-file and cross-file passes.
 
 ```mermaid
 mindmap
   root((Module H<br/>Multi-pass Review))
-    L33 Independent-instance review
+    L34 Independent-instance review
       not yet written
 ```
 
@@ -239,9 +258,15 @@ graph LR
     L01_blocks["L01 content blocks"] --> L02_blocks["L02 tool_use and tool_result block shapes"]
     L02_loop --> L03_while["L03 while loop over stop_reason"]
     L01_stop_reason --> L03_while
-    L03_while -.future.-> L04_anti["L04 loop anti-patterns text-parse iter-cap"]
-    L03_while -.future.-> L05_lookup["L05 customer-lookup agent end-to-end"]
-    L03_while -.future.-> L16_par["L16 parallel tool_use blocks in one turn"]
+    L03_while --> L04_patterns["L04 workflow patterns catalog"]
+    L03_while -.future.-> L05_anti["L05 loop anti-patterns text-parse iter-cap"]
+    L03_while -.future.-> L06_lookup["L06 customer-lookup agent end-to-end"]
+    L03_while -.future.-> L17_par["L17 parallel tool_use blocks in one turn"]
+    L04_patterns -.instance.-> L16_orch["L16 coordinator = orchestrator-workers"]
+    L04_patterns -.instance.-> L17_par
+    L04_patterns -.instance.-> L26_eval["L26 validation retry = evaluator-optimizer"]
+    L04_patterns -.instance.-> L34_review["L34 multi-pass review = evaluator-optimizer"]
+    L04_patterns -.principle.-> L11_aci["L11 ACI tool-description craft"]
     L02_dance["L02 tool_use mechanism"] -.future.-> F_struct["Module F structured output via tool_use"]
     L02_dance -.future.-> C_mcp["Module C MCP tools same protocol"]
 ```
