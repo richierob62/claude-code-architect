@@ -45,13 +45,50 @@ TOOLS = [
             "required": ["employee_id"],
         },
     },
+    {
+        "name": "list_team_members",
+        "description": (
+            "Return the names and roles of all employees belonging to the team having received the team name."
+        ),
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "team": {
+                    "type": "string",
+                    "description": "The name of the team.",
+                }
+            },
+            "required": ["team"],
+        },
+    },
 ]
 
 # Fake "database". Tiny on purpose.
 DIRECTORY = {
-    "E-1042": {"name": "Ada Lovelace", "role": "Staff Engineer", "team": "Platform", "start": "2021-03-15"},
-    "E-2087": {"name": "Alan Turing", "role": "Principal Researcher", "team": "Cryptography", "start": "2019-09-01"},
-    "E-3120": {"name": "Grace Hopper", "role": "Director of Compilers", "team": "Languages", "start": "2018-01-08"},
+    "E-1042": {
+        "name": "Ada Lovelace",
+        "role": "Staff Engineer",
+        "team": "Platform",
+        "start": "2021-03-15",
+    },
+    "E-2087": {
+        "name": "Alan Turing",
+        "role": "Principal Researcher",
+        "team": "Cryptography",
+        "start": "2019-09-01",
+    },
+    "E-1055": {
+        "name": "Max Romeo",
+        "role": "Senior Engineer",
+        "team": "Platform",
+        "start": "2019-11-01",
+    },
+    "E-3120": {
+        "name": "Grace Hopper",
+        "role": "Director of Compilers",
+        "team": "Languages",
+        "start": "2018-01-08",
+    },
 }
 
 
@@ -70,10 +107,22 @@ def get_employee_details(employee_id: str) -> str:
     return json.dumps(rec)
 
 
+def list_team_members(team: str) -> str:
+    members: list[dict[str, str]] = [
+        {"name": rec["name"], "role": rec["role"]}
+        for rec in DIRECTORY.values()
+        if rec["team"] == team
+    ]
+    if not members:
+        return json.dumps({"error": f"no employees on team {team!r}"})
+    return json.dumps(members)
+
+
 # Dispatch table. New tools just go in here.
 IMPLEMENTATIONS = {
     "find_employee_id": find_employee_id,
     "get_employee_details": get_employee_details,
+    "list_team_members": list_team_members,
 }
 
 
@@ -139,3 +188,4 @@ if __name__ == "__main__":
     run("Tell me Grace Hopper's role and team.")
     # Direct answer; no tools needed. Loop exits on iter 1 with end_turn.
     run("What does the acronym 'API' stand for?")
+    run("Who are the employees on Ada's team?")
