@@ -49,6 +49,19 @@ Each pattern below is one or more augmented LLMs arranged in a particular topolo
 
 These are the only five you need to know by name. Each gets one paragraph of "what it is", one paragraph of "when to use it", and a concrete example. Do **not** skim — the exam will use these names directly.
 
+> **Mnemonic (all seven, in order):** *"**Charlie ran parallel** to the **orchestra evaluating** the **agent**."* (Ignore the filler "to / the".)
+>
+> | Word | Pattern |
+> |---|---|
+> | **Charlie** | prompt **chaining** |
+> | **ran** | **routing** |
+> | **parallel** | **parallelization** — covers *both* flavors: **sectioning** (split the work) and **voting** (split the vote / run K, aggregate) |
+> | **orchestra** | **orchestrator**-workers |
+> | **evaluating** | **evaluator**-optimizer |
+> | **agent** | **agent** |
+>
+> The order also tracks **increasing autonomy** — from "you control the path" (chaining) to "the model controls everything" (agent).
+
 ### 1. Prompt chaining
 
 **Shape**: a fixed sequence of LLM calls where call N's output is call N+1's input. Optionally with **gates** between steps — programmatic checks that abort or reroute if an intermediate result is malformed.
@@ -184,14 +197,14 @@ There's no script for this lesson. Instead, fill in this table on paper or in `s
 | Lesson | What it builds | Pattern name |
 |---|---|---|
 | L03 — `agentic_loop.py` | `find_id` → `get_details` chain driven by `stop_reason` | **Agent** (not a workflow — Claude decides whether and which tool to call) |
-| L06 — Customer-lookup agent | A multi-tool agent ending with a clean answer | ? |
+| L06 — Customer-lookup agent | Claude loops over *several* tools (lookup, orders, refunds), deciding which to call each turn, until it has enough to answer | ? |
 | L15 — `tool_choice` | Forcing tool use vs. allowing free choice | (not a pattern — a *control* over the agent's choice) |
 | L16 — Coordinator/subagent | A central agent dispatching subtasks to subagents | ? |
 | L17 — Parallel subagents | Multiple subagent calls in one turn, results aggregated | ? |
 | L26 — Pydantic validation + retry | Emit JSON → validate → on failure, retry with error feedback | ? |
 | L34 — Independent-instance review | Generate code → independent reviewer flags issues → fix | ? |
 
-(Answers, in order: orchestrator-workers; orchestrator-workers; parallelization–sectioning *if* the subtasks are predefined, else orchestrator-workers; evaluator-optimizer; evaluator-optimizer.)
+(Answers, in order: **Agent** (multi-tool, model-driven — same shape as L03, just more tools; *not* orchestrator-workers, because there are no subagents, and *not* prompt chaining, because the call sequence isn't fixed by you); orchestrator-workers; parallelization–sectioning *if* the subtasks are predefined, else orchestrator-workers; evaluator-optimizer; evaluator-optimizer.)
 
 The point of the exercise: by the time you reach those lessons, you'll already know what pattern they're an instance of, and you'll spend cognitive effort on the *details* of the implementation rather than re-deriving the architecture.
 
