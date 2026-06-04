@@ -21,8 +21,8 @@ This is your personal curriculum for the Claude Certified Architect (Foundations
 ## Module B — Agentic Loops (Domain 1 core, 6 lessons)
 
 - [x] [03 — Anatomy of the agentic loop](./03-agentic-loop.md)
-- [ ] [04 — Workflow patterns: the agentic-systems catalog](./04-workflow-patterns.md)
-- [ ] [05 — Loop anti-patterns: text-parsing for completion, iteration caps as primary stop](./05-loop-antipatterns.md)
+- [x] [04 — Workflow patterns: the agentic-systems catalog](./04-workflow-patterns.md)
+- [x] [05 — Loop anti-patterns: text-parsing for completion, iteration caps as primary stop](./05-loop-antipatterns.md)
 - [ ] [06 — End-to-end multi-turn: build a customer-lookup agent](./06-customer-lookup-agent.md)
 - [ ] [07 — Structured errors: isError, errorCategory, isRetryable](./07-structured-errors.md)
 - [ ] [08 — tool_choice: auto vs any vs forced](./08-tool-choice.md)
