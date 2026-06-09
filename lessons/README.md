@@ -25,7 +25,7 @@ This is your personal curriculum for the Claude Certified Architect (Foundations
 - [x] [05 — Loop anti-patterns: text-parsing for completion, iteration caps as primary stop](./05-loop-antipatterns.md)
 - [x] [06 — End-to-end multi-turn: build a customer-lookup agent](./06-customer-lookup-agent.md)
 - [x] [07 — Structured errors: isError, errorCategory, isRetryable](./07-structured-errors.md)
-- [ ] [08 — tool_choice: auto vs any vs forced](./08-tool-choice.md)
+- [x] [08 — tool_choice: auto vs any vs forced](./08-tool-choice.md)
 
 ## Module C — MCP Deep Dive (Domain 2, 4 lessons)
 
