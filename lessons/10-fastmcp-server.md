@@ -18,8 +18,10 @@ The package is **`mcp`** — Anthropic's official Python SDK for the Model Conte
 
 ```bash
 uv add mcp        # ← this was run when L10 was written; you don't need to repeat it
-uv run python -c "import mcp; print(mcp.__version__)"   # confirm: 1.27.x or later
+uv run python -c "import importlib.metadata as m; print(m.version('mcp'))"   # confirm: 1.27.x or later
 ```
+
+> The `mcp` package has **no** `mcp.__version__` attribute (`import mcp; print(mcp.__version__)` raises `AttributeError`). Read the installed version from distribution metadata instead — `importlib.metadata.version('mcp')`, or `uv pip show mcp`.
 
 > `FastMCP` is the *high-level* server API in the `mcp` package. (There's also a separate standalone project confusingly also called "FastMCP"; we use the one bundled in the official `mcp` SDK — `from mcp.server.fastmcp import FastMCP`. Same idea, and it's what `uv add mcp` gives you.)
 
