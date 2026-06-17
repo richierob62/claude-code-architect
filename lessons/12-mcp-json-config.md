@@ -144,13 +144,34 @@ claude mcp list
 
 On a **freshly added project-scoped** server you'll likely see `⏸ Pending approval (run \`claude\` to approve)` rather than an immediate ✓. That is deliberate: because `.mcp.json` is committed and may have arrived from a teammate (or a repo you cloned), Claude Code does **not** auto-trust project-scoped servers — it asks you to approve them on first use. Start `claude` in the repo, approve `support-desk` when prompted, and it flips to ✓ connected. (local- and user-scope servers you added yourself don't need this — you authored them.)
 
-To inspect the discovered surface:
+To inspect the **configuration** (scope, transport, launch command, liveness):
 
 ```bash
 claude mcp get support-desk
 ```
 
-This runs the same `list_tools` discovery you drove by hand in L10 — except now Claude Code is the client. You should see `lookup_plan` and `cheapest_plan` (and the `catalog://plans` resource) discovered **at connection time**, exactly as Concept 3 describes.
+```
+support-desk:
+  Scope: Project config (shared via .mcp.json)
+  Status: ✔ Connected
+  Type: stdio
+  Command: uv
+  Args: run python lessons/scripts/support_server.py
+  Environment:
+```
+
+Read this carefully, because it's a common trap: **`claude mcp get` is a static config inspector, not a discovery dump.** It reports what's in `.mcp.json` plus a liveness check (`✔ Connected`). It does **not** run `list_tools`/`list_resources` and print `lookup_plan`, `cheapest_plan`, or `catalog://plans`. Seeing no tools here is the *correct, expected* output — it does not mean discovery failed.
+
+So where *does* the discovery surface? **In the running session's tool registry.** When Claude Code connects to the server, it runs the same `list_tools`/`list_resources` handshake you drove by hand in L10, then namespaces each result as `mcp__<server>__<tool>`. Inside a live session you'll find:
+
+```
+mcp__support-desk__lookup_plan
+mcp__support-desk__cheapest_plan
+```
+
+registered as callable tools — and `catalog://plans` reachable via the `ListMcpResourcesTool` / `ReadMcpResourceTool` pair (resources aren't callable tools, so they don't appear in the tool list; they're read through that pair). *That* is Concept 3 happening for real: discovery at connection time, pooled into the agent's tool set — just surfaced in the session registry, not in `claude mcp get`.
+
+> **The distinction the exam (and this lesson) cares about:** *config inspection* (`claude mcp get` → scope/transport/status) vs *runtime discovery* (the `mcp__server__tool` entries the client registers on connect). They're different stages. `get` tells you the server is wired up and alive; the namespaced tools in the session prove its surface was discovered and pooled.
 
 ### Step 4 — use it in a session (optional, ~1 trivial query)
 
