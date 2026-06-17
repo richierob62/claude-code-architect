@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "support-desk": {
+      "type": "stdio",
+      "command": "uv",
+      "args": [
+        "run",
+        "python",
+        "lessons/scripts/support_server.py"
+      ],
+      "env": {}
+    }
+  }
+}

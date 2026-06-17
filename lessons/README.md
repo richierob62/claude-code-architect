@@ -29,10 +29,10 @@ This is your personal curriculum for the Claude Certified Architect (Foundations
 
 ## Module C — MCP Deep Dive (Domain 2, 4 lessons)
 
-- [ ] [09 — MCP mental model: tools vs resources, the protocol](./09-mcp-mental-model.md)
-- [ ] [10 — Build your first MCP server (FastMCP)](./10-fastmcp-server.md)
-- [ ] [11 — Agent-Computer Interface (ACI): tool description craft, format choice, poka-yoke](./11-tool-descriptions.md)
-- [ ] [12 — .mcp.json: project vs user scope, env var expansion, multi-server](./12-mcp-json-config.md)
+- [x] [09 — MCP mental model: tools vs resources, the protocol](./09-mcp-mental-model.md)
+- [x] [10 — Build your first MCP server (FastMCP)](./10-fastmcp-server.md)
+- [x] [11 — Agent-Computer Interface (ACI): tool description craft, format choice, poka-yoke](./11-tool-descriptions.md)
+- [x] [12 — .mcp.json: project vs user scope, env var expansion, multi-server](./12-mcp-json-config.md)
 
 ## Module D — Claude Agent SDK (Domain 1 advanced, 6 lessons)
 
