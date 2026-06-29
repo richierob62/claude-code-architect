@@ -176,6 +176,6 @@ Create `lessons/scripts/subagent_lab.py`. Build a parent agent with **one** suba
 
 ## Up next
 
-**Lesson 16 — Coordinator/subagent build (orchestrator-workers).** You can now spawn *one* subagent. L16 builds the full pattern: a coordinator that routes different kinds of work to *different specialized* subagents and synthesizes their results — the canonical multi-agent architecture the exam centers Domain 1 on. You'll wire two or three workers (each a focused `AgentDefinition`) under one coordinator and watch it dispatch by task type — explicit context passing, now at scale.
+**The coordinator/subagent build (orchestrator-workers).** You can now spawn *one* subagent. The next lesson builds the full pattern: a coordinator that routes different kinds of work to *different specialized* subagents and synthesizes their results — the canonical multi-agent architecture. You'll wire two or three workers (each a focused `AgentDefinition`) under one coordinator and watch it dispatch by task type — explicit context passing, now at scale.
 
 When you've worked through this lesson and the build, tick the box in `lessons/README.md` and tell me you're done — I'll write 16.

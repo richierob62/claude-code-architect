@@ -195,7 +195,7 @@ def run(user_text: str, max_iters: int = 10) -> None:
         messages.append({"role": "assistant", "content": response.content})
 
         # Execute every tool_use block this turn produced. (Claude can request
-        # several at once — Lesson 17 explores parallel calls in depth.)
+        # several at once — a later Module D lesson explores parallel calls in depth.)
         tool_results = []
         for block in response.content:
             if block.type == "tool_use":

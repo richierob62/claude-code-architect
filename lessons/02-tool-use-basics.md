@@ -68,7 +68,7 @@ The crucial, non-obvious points:
 
 - **Step 2's assistant message must be appended to history verbatim** — including the `tool_use` block with its `id`. If you don't, step 3's `tool_result` has nothing to point at and the API errors.
 - **Step 3 is a `user`-role message.** This is the role-alternation trick from Lesson 01: the sequence is `user → assistant(tool_use) → user(tool_result) → assistant(end_turn)`. Alternation is preserved because the tool result is *wrapped* as a user turn. It is **never** a `system` message and never an `assistant` message.
-- **`tool_use_id` is the join key.** The `tool_result` block carries `tool_use_id` equal to the `id` from the `tool_use` block. With parallel tool calls (Lesson 16) you'll have several of each, and the IDs are how they pair up.
+- **`tool_use_id` is the join key.** The `tool_result` block carries `tool_use_id` equal to the `id` from the `tool_use` block. With parallel tool calls (a later Module D lesson) you'll have several of each, and the IDs are how they pair up.
 
 ## Concept 3 — Claude decides whether to call at all
 

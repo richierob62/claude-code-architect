@@ -47,8 +47,8 @@ This is the heart of the lesson. Every column on the right is something you wrot
 | **The agentic loop** — runs `tool_use → execute → tool_result → repeat` until `end_turn` | Your L03 `while response.stop_reason == "tool_use":` loop, including the L05 lesson that the *correct* terminator is `stop_reason`, not text-parsing |
 | **Built-in tools** — `Read`, `Write`, `Edit`, `Bash`, `Grep`, `Glob`, `WebSearch`, `WebFetch`, … | The tool *implementations* you'd otherwise write and dispatch yourself (your L06 `IMPLEMENTATIONS[name](**input)` dispatch dict) |
 | **MCP integration** — point it at MCP servers; their tools join the pool | Your L10–L12 work wiring `support_server.py` in via `.mcp.json` (the SDK consumes the *same* servers) |
-| **Subagents** — spawn isolated sub-tasks with their own context/tools | (You haven't built this — it's genuinely new, and it's L15–L17) |
-| **Hooks** — intercept tool calls (`PreToolUse`/`PostToolUse`) for deterministic guarantees | (New — L18. This is the guide's "programmatic enforcement over prompt-based" idea) |
+| **Subagents** — spawn isolated sub-tasks with their own context/tools | (You haven't built this — it's genuinely new, and it's the next few Module D lessons) |
+| **Hooks** — intercept tool calls (`PreToolUse`/`PostToolUse`) for deterministic guarantees | (New — the hooks lesson later in Module D. This is the "programmatic enforcement over prompt-based" idea) |
 | **Context management** — compaction, trimming, keeping the transcript in budget | (You'll meet the manual version in Module G; the SDK does a lot of it for you) |
 | **Permission modes** — gate which tools can run, and whether to ask first | The "should this side-effecting tool be allowed?" judgement you'd otherwise hard-code |
 
@@ -155,7 +155,7 @@ If you want to get ahead on setup, you *may* `uv add claude-agent-sdk` now — b
 ## What you now know
 
 - **Three surfaces, one spectrum over `/v1/messages`:** raw Messages API (you run the loop) → Agent SDK (the harness runs it) → Claude Code (the harness + a UI for humans). Control trades for leverage as you descend.
-- **The SDK is the harness you hand-rolled in Modules B–C, handed to you:** the agentic loop (L03/L05), tool execution + dispatch (L06), MCP server consumption (L10–L12) — *plus* genuinely new capabilities you'll learn next (subagents L15–L17, hooks L18, context management).
+- **The SDK is the harness you hand-rolled in Modules B–C, handed to you:** the agentic loop (L03/L05), tool execution + dispatch (L06), MCP server consumption (L10–L12) — *plus* genuinely new capabilities you'll learn next (subagents, hooks, context management — the rest of Module D).
 - **The decision rule:** single call → raw API; total-control loop → raw API; genuinely agentic multi-step work → SDK; interactive human work → Claude Code. **Start at the simplest tier that meets the need.**
 - **The trade-offs are real:** the SDK costs you loop-level control granularity, adds a heavier runtime dependency, and keeps per-token detail inside the harness unless you ask. Higher-level ≠ strictly better.
 - **Two entry points:** `query()` (stateless, one-shot/streaming) vs `ClaudeSDKClient` (stateful, interactive multi-turn), both configured via **`ClaudeAgentOptions`**. Same `ANTHROPIC_API_KEY` as the raw API.

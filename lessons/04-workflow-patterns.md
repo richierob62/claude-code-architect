@@ -8,7 +8,7 @@
 
 Domain 1 is 27% of the exam, and the question stems will use Anthropic's own vocabulary. The seminal post — *Building Effective Agents* (Anthropic, Dec 2024, Erik S. & Barry Zhang) — defines the words the exam writers reach for first. If you can't tell **prompt chaining** from **orchestrator-workers** at a glance, you'll lose easy points on architecture-choice questions.
 
-The other reason this lesson exists where it does: the rest of Module B and all of Module D are *instances* of these patterns. Lesson 03 was a tiny **agent**. Lesson 15 (coordinator pattern) is **orchestrator-workers**. Lesson 16 (parallel subagents) is **parallelization–sectioning**. Lesson 25 (validation retry) is **evaluator-optimizer**. Lesson 33 (independent-instance review) is **evaluator-optimizer with multiple evaluators**. Naming them now turns the rest of the course into recognition rather than discovery.
+The other reason this lesson exists where it does: much of the rest of the course is *instances* of these patterns. Lesson 03 was a tiny **agent**. The coordinator-pattern lesson is **orchestrator-workers**. The parallel-subagents lesson is **parallelization–sectioning**. The validation-retry lesson is **evaluator-optimizer**. The independent-instance-review lesson is **evaluator-optimizer with multiple evaluators**. Naming them now turns the rest of the course into recognition rather than discovery.
 
 ## The single most important distinction: **workflow vs. agent**
 
@@ -41,7 +41,7 @@ Before the patterns, name the atom. Every pattern below is built from one repeat
 
 - **Retrieval** — fetch relevant information (RAG, search, lookups).
 - **Tools** — invoke external functions (everything you built in Lessons 02–03).
-- **Memory** — persist information across calls (case-facts blocks in Lesson 29, conversation history, etc.).
+- **Memory** — persist information across calls (case-facts blocks in the context-management module, conversation history, etc.).
 
 Each pattern below is one or more augmented LLMs arranged in a particular topology. Memorising the topologies is the work of this lesson.
 
@@ -135,7 +135,7 @@ Sectioning:                          Voting:
 
 **How it differs from parallelization**: parallelization's subtasks are *fixed* by the developer; orchestrator-workers' subtasks are *chosen by the model* per-input. Topologically they look similar (one fan-out, one fan-in) — the distinction is **who decides the fan-out shape**.
 
-**You will build this in Lesson 16** (the new numbering — coordinator pattern) and again in Lesson 17 (parallel subagent calls).
+**You will build this in the coordinator-pattern lesson** and again in the parallel-subagents lesson (both later in Module D).
 
 ### 5. Evaluator-optimizer
 
@@ -151,8 +151,8 @@ Sectioning:                          Voting:
 
 **Examples**:
 - Literary translation (evaluator critiques register; generator retranslates).
-- Pydantic-validation-with-retry (Lesson 26 in the new numbering): generator emits structured output → validator checks the schema → on failure, generator retries with the validation error as feedback. The validator is "just" a Pydantic call, but the **pattern** is evaluator-optimizer.
-- Multi-pass code review (Lesson 34 in the new numbering): one LLM proposes changes, another reviews against project conventions, loop until clean.
+- Pydantic-validation-with-retry (the validation-retry lesson, Module F): generator emits structured output → validator checks the schema → on failure, generator retries with the validation error as feedback. The validator is "just" a Pydantic call, but the **pattern** is evaluator-optimizer.
+- Multi-pass code review (the independent-instance-review lesson, Module I): one LLM proposes changes, another reviews against project conventions, loop until clean.
 
 **How it differs from prompt chaining**: chaining is one-shot per step. Evaluator-optimizer is **a loop with a fail/retry edge** — the same generator may run multiple times with growing context.
 
@@ -198,11 +198,11 @@ There's no script for this lesson. Instead, fill in this table on paper or in `s
 |---|---|---|
 | L03 — `agentic_loop.py` | `find_id` → `get_details` chain driven by `stop_reason` | **Agent** (not a workflow — Claude decides whether and which tool to call) |
 | L06 — Customer-lookup agent | Claude loops over *several* tools (lookup, orders, refunds), deciding which to call each turn, until it has enough to answer | ? |
-| L15 — `tool_choice` | Forcing tool use vs. allowing free choice | (not a pattern — a *control* over the agent's choice) |
-| L16 — Coordinator/subagent | A central agent dispatching subtasks to subagents | ? |
-| L17 — Parallel subagents | Multiple subagent calls in one turn, results aggregated | ? |
-| L26 — Pydantic validation + retry | Emit JSON → validate → on failure, retry with error feedback | ? |
-| L34 — Independent-instance review | Generate code → independent reviewer flags issues → fix | ? |
+| L08 — `tool_choice` | Forcing tool use vs. allowing free choice | (not a pattern — a *control* over the agent's choice) |
+| Coordinator/subagent lesson | A central agent dispatching subtasks to subagents | ? |
+| Parallel-subagents lesson | Multiple subagent calls in one turn, results aggregated | ? |
+| Validation-retry lesson | Emit JSON → validate → on failure, retry with error feedback | ? |
+| Independent-instance-review lesson | Generate code → independent reviewer flags issues → fix | ? |
 
 (Answers, in order: **Agent** (multi-tool, model-driven — same shape as L03, just more tools; *not* orchestrator-workers, because there are no subagents, and *not* prompt chaining, because the call sequence isn't fixed by you); orchestrator-workers; parallelization–sectioning *if* the subtasks are predefined, else orchestrator-workers; evaluator-optimizer; evaluator-optimizer.)
 

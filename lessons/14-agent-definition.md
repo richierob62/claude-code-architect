@@ -58,7 +58,7 @@ Compare this to your L03 raw loop. **The entire `while response.stop_reason == "
 1. **It's async.** `query()` is an async generator — you must `async for` it, inside an `async def`, launched with `asyncio.run(...)`. (Your raw-API calls were synchronous. The SDK is async-first because an agent loop is inherently I/O-bound — it's waiting on the model and on tools.)
 2. **`prompt` and `options` are separate.** The user's request goes in `prompt`. *Everything about the agent's identity and capabilities* goes in `options`. That separation is the mental model: **prompt = the task, options = the agent.**
 3. **You filter the message stream by type.** Not every yielded message is the answer. You `isinstance`-check for the type you care about — exactly the discriminated-union / content-block polymorphism you met in L02, now one level up at the *message* level instead of the *block* level.
-4. **`ClaudeAgentOptions` is the spine.** It's the only configuration surface. `system_prompt`, `allowed_tools`, `model`, plus `mcp_servers`, `max_turns`, `agents` (L15+), `hooks` (L18) — all of Module D is fields on this one dataclass.
+4. **`ClaudeAgentOptions` is the spine.** It's the only configuration surface. `system_prompt`, `allowed_tools`, `model`, plus `mcp_servers`, `max_turns`, `agents` (the subagent lessons), `hooks` (the hooks lesson) — all of Module D is fields on this one dataclass.
 
 ---
 
