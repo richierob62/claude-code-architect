@@ -45,12 +45,12 @@ read_local_document:  "Read and extract text from a LOCAL FILE already on disk..
                         URLs — use extract_web_results for those."
 ```
 
-Same prompt to both: `"Pull the key results out of this file: /Users/rich/reports/q3.pdf"` — unambiguously a **local file** task.
+Same prompt to both: `"Pull the key results out of this file: /data/reports/q3.pdf"` — unambiguously a **local file** task.
 
 ### Verified output
 
 ```
-PROMPT: 'Pull the key results out of this file: /Users/rich/reports/q3.pdf'
+PROMPT: 'Pull the key results out of this file: /data/reports/q3.pdf'
 (A local-file task. Correct target = the local-document tool.)
 AMBIGUOUS (reader_a vs reader_b, identical descriptions): model picked -> ['reader_a']
 DIFFERENTIATED (extract_web_results vs read_local_document): model picked -> ['read_local_document']

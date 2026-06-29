@@ -114,11 +114,11 @@ usage: {'input_tokens': 10, 'cache_creation_input_tokens': 23658, 'output_tokens
 
 Your prompt was ~10 tokens. But the SDK fed the model **23,658 additional tokens** — the Claude Code agent harness: its system prompt, every built-in tool's full definition (`Read`, `Bash`, `Grep`, `Glob`, `WebSearch`, …), and your project's `CLAUDE.md`. That's the harness L13 told you the SDK runs under the hood — and now you're *paying for it on every call*.
 
-**This makes L13's trade-off literal and measured.** The same question on the raw Messages API would cost ~$0.0001 — roughly **300× cheaper** — because the raw API sends only your messages. The SDK's leverage (loop + tools + context, all free of hand-rolling) has a real token price. The exam's "start at the simplest tier" principle isn't just architectural tidiness: **wrapping the SDK around a one-shot classification is, concretely, a 300× cost multiplier.** This is exactly why L13 said "single call → raw API."
+**This makes L13's trade-off literal and measured.** The same question on the raw Messages API would cost ~$0.0001 — because the raw API sends only your messages, no harness. So the SDK one-shot is **roughly 200–300× more expensive** (≈300× at the ~3¢ default, ≈200× even after trimming to the ~2¢ floor below). The SDK's leverage (loop + tools + context, all free of hand-rolling) has a real token price. The exam's "start at the simplest tier" principle isn't just architectural tidiness: **wrapping the SDK around a one-shot classification is, concretely, a 200–300× cost multiplier.** This is exactly why L13 said "single call → raw API."
 
-### You can cut the overhead
+### You can cut the overhead (somewhat)
 
-Two of those tokens-eaters are optional. Add `setting_sources=[]` to stop loading the project `CLAUDE.md` and settings files:
+One big token-eater is optional. Add `setting_sources=[]` to stop loading the project `CLAUDE.md` and settings files:
 
 ```python
 options = ClaudeAgentOptions(
@@ -129,14 +129,18 @@ options = ClaudeAgentOptions(
 )
 ```
 
-**Verified, same prompt:**
+**Verified, same prompt, running the script cold from the shell** (i.e. what you'll actually see):
 
-| Config | `cache_creation` tokens | Cost |
+| Config | harness tokens (`cache_creation`) | Cost |
 |---|---|---|
-| default | 9,294 | $0.0134 |
-| `setting_sources=[]` | 2,536 | $0.0050 |
+| default | ~23,000 | ~$0.03 |
+| `setting_sources=[]` | ~16,900 | ~$0.022 |
 
-(The first-ever call in a fresh process pays more — ~23k tokens, ~3¢ — because of one-time cache creation; steady-state is the table above.) The harness is never *zero* overhead — that's the price of the loop running for you — but you control a chunk of it. **For the rest of Module D, set `setting_sources=[]` on exercises** to keep your $3–5 budget intact.
+`setting_sources=[]` removes your `CLAUDE.md` + settings (~6k tokens). What remains is the **Claude Code base system prompt (~10k, irremovable — it *is* the harness)** plus the **built-in tool definitions (~6.7k)**. So the floor for a one-shot SDK call on Haiku is roughly **2¢**, not a fraction of a cent. The harness is never *zero* — that's the price of the loop running for you.
+
+> **Why you won't see "half a cent" — the cache trap (worth understanding).** You may find blog posts or examples quoting *much* lower SDK costs (~$0.005). Those are **warm-cache** numbers. The SDK uses prompt caching: the **first** call in a process pays the **cache-creation** premium (~25% over normal input) to store the harness; **later calls in the same process** hit it at the **cache-read** rate (~10% of input — a 90% discount). Print `usage` and you'll see `cache_creation_input_tokens` high and `cache_read_input_tokens: 0` — that zero means you paid full creation price. **A one-shot script that starts, asks once, and exits can never benefit:** the cache dies with the process (and only lives ~5 minutes anyway). So running `first_query.py` repeatedly always pays the cold price. The cheap warm-cache rate only materializes inside a **long-lived agent making many calls** — which is the SDK's actual use case, and the opposite of a one-shot.
+
+**For the rest of Module D, set `setting_sources=[]` and `model="claude-haiku-4-5"` on every exercise.** At ~1–2¢ per cold call that keeps the whole module well inside your $3–5 budget — but don't put `query()` calls in a loop without thinking, because each one pays the cold harness price again.
 
 ---
 
@@ -165,7 +169,9 @@ options = ClaudeAgentOptions(
     allowed_tools=[],                 # "no tools" ... right?
     model="claude-haiku-4-5",
     setting_sources=[],
-    cwd="/Users/rich/Dropbox/_Projects/coding/claude-code-architect",
+    # cwd defaults to where you launch the script. Run this from the repo root
+    # so the agent's Bash/Glob sees `lessons/`. (To be explicit/portable instead
+    # of relying on that default, pass cwd=str(Path(__file__).resolve().parents[2]).)
 )
 # prompt: "How many .md files are in the lessons/ directory? Use the Bash tool to check."
 ```
