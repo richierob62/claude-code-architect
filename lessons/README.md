@@ -88,6 +88,7 @@ Getting reliable, schema-valid data out of a model — by hand, then with the li
 
 What production agents need that the fundamentals don't cover: retrieval-augmented generation, defending against adversarial input, and engineering for cost and observability.
 
+- [ ] [45 — Build a web-ingestion tool: wrapping Crawl4AI as a purpose-built `read_web_page` (the L11 ACI callback — beat the built-in WebFetch)](./45-crawl4ai-tool.md) *(new; read before 38 — RAG reuses this as its ingestion front-end)*
 - [ ] [38 — RAG fundamentals: embeddings, vector search, chunking, retrieval](./38-rag-fundamentals.md) *(new)*
 - [ ] [39 — Prompt-injection & AI safety: input/output guards, rate limiting](./39-ai-safety.md) *(new)*
 - [ ] [40 — Cost & latency engineering + observability: prompt caching (for real), model routing, per-call tracing & metrics](./40-cost-observability.md) *(new)*
