@@ -1,7 +1,7 @@
 # Lesson 15 — Subagent spawning: explicit context passing
 
 **Time**: ~15 minutes
-**Prerequisites**: L14 (you can write a `query()` call and configure `ClaudeAgentOptions`). You'll also lean on L04 (the orchestrator-workers pattern — "remember Charlie ran parallel to the orchestra") and L14's tool-gating semantics (`allowed_tools` vs `disallowed_tools`).
+**Prerequisites**: L14 (you can write a `query()` call and configure `ClaudeAgentOptions`). You'll also lean on L04 (the orchestrator-workers pattern) and L14's tool-gating semantics (`allowed_tools` vs `disallowed_tools`).
 **Goal**: Spawn your first **subagent** — an isolated sub-task with its own system prompt, tools, and **its own fresh context** — and internalize the single most important discipline in multi-agent work: **a subagent starts with none of the parent's knowledge unless you pass it explicitly.** By the end you'll have run a live delegation, watched the parent hand work down, and *proven to yourself* that the subagent can't see what you didn't give it.
 
 ## Why this matters for the exam
@@ -33,7 +33,7 @@ In L14 you ran one agent: one system prompt, one context window, one loop. A **s
 1. **Context hygiene.** A research subagent might read 50 files and burn 80k tokens doing it. If that all landed in the parent's context, the parent would be drowning in noise. Instead the subagent does the messy work in *its own* window and returns a clean 200-token summary. The parent's context stays lean. (This is the L13 "context management" row, now concrete.)
 2. **Focused behaviour.** Each subagent has a tight, single-purpose system prompt ("you are a haiku poet, output exactly one haiku"), so it behaves more reliably than one mega-agent juggling everything — the same L11 "sharp description → reliable behaviour" idea, applied to a whole agent.
 
-> **L04 callback.** This *is* the **orchestrator-workers** pattern from "Charlie ran parallel to the orchestra." The parent is the orchestrator; subagents are the workers it dispatches. L15 is you building the worker-dispatch machinery for the first time.
+> **L04 callback.** This *is* the **orchestrator-workers** pattern from L04. The parent is the orchestrator; subagents are the workers it dispatches. L15 is you building the worker-dispatch machinery for the first time.
 
 ---
 
@@ -172,7 +172,7 @@ Create `lessons/scripts/subagent_lab.py`. Build a parent agent with **one** suba
 - **You define subagents** via the `agents` dict on `ClaudeAgentOptions`, each an **`AgentDefinition(description=..., prompt=...)`**. `description` = *when to delegate* (L11 selection signal); `prompt` = *the worker's system prompt* (L14 identity).
 - **You enable delegation** with `"Task"` in `allowed_tools`; the call surfaces in the stream as the **`Agent`** tool with a `subagent_type` naming which subagent to spawn.
 - **Explicit context passing is the discipline:** the subagent knows *only* what the parent writes into the handed-down `prompt`. Proven live — a parent that knew "BANANA" but didn't pass it spawned a subagent that genuinely couldn't see it. If the worker needs it, put it in the prompt.
-- **This is orchestrator-workers** ("Charlie ran parallel to the orchestra") — parent orchestrates, subagents are the workers.
+- **This is orchestrator-workers** — parent orchestrates, subagents are the workers.
 
 ## Up next
 

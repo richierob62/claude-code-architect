@@ -11,7 +11,7 @@ Domain 1 (27%) doesn't just ask you to *recognize* the agentic loop — several 
 - **"Prompt chaining"** — wrong, because chaining means *you* hard-code the sequence (call A, then always B, then always C). Here the sequence isn't fixed: a question about a customer's email needs one tool; a question about a shipment needs three. The model picks the path.
 - **"Orchestrator-workers"** — wrong, because there's no orchestrator delegating subtasks to worker agents. It's one model, one loop, calling tools.
 
-The right answer is **Agent**: *a single model in a loop, choosing tools turn by turn until it has what it needs, terminating on `end_turn`.* This lesson builds exactly that so the label is grounded in something you ran, not memorized. Recall the L04 mnemonic — *"Charlie ran parallel to the orchestra evaluating the **agent**"* — the agent is the last and most autonomous pattern, and this is it.
+The right answer is **Agent**: *a single model in a loop, choosing tools turn by turn until it has what it needs, terminating on `end_turn`.* This lesson builds exactly that so the label is grounded in something you ran, not memorized. Recall the L04 ordering — the agent is the last and most autonomous of the six patterns, and this is it.
 
 ## What's new vs. Lesson 03
 

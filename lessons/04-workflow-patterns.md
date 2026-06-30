@@ -49,18 +49,18 @@ Each pattern below is one or more augmented LLMs arranged in a particular topolo
 
 These are the only five you need to know by name. Each gets one paragraph of "what it is", one paragraph of "when to use it", and a concrete example. Do **not** skim — the exam will use these names directly.
 
-> **Mnemonic (all seven, in order):** *"**Charlie ran parallel** to the **orchestra evaluating** the **agent**."* (Ignore the filler "to / the".)
+> **The six, in order of increasing autonomy:**
 >
-> | Word | Pattern |
+> | # | Pattern |
 > |---|---|
-> | **Charlie** | prompt **chaining** |
-> | **ran** | **routing** |
-> | **parallel** | **parallelization** — covers *both* flavors: **sectioning** (split the work) and **voting** (split the vote / run K, aggregate) |
-> | **orchestra** | **orchestrator**-workers |
-> | **evaluating** | **evaluator**-optimizer |
-> | **agent** | **agent** |
+> | 1 | prompt **chaining** |
+> | 2 | **routing** |
+> | 3 | **parallelization** — covers *both* flavors: **sectioning** (split the work) and **voting** (split the vote / run K, aggregate) |
+> | 4 | **orchestrator**-workers |
+> | 5 | **evaluator**-optimizer |
+> | 6 | **agent** |
 >
-> The order also tracks **increasing autonomy** — from "you control the path" (chaining) to "the model controls everything" (agent).
+> The order tracks **increasing autonomy** — from "you control the path" (chaining) to "the model controls everything" (agent).
 
 ### 1. Prompt chaining
 
